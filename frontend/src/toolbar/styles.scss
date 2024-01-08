@@ -1,0 +1,53 @@
+@import '../styles/vars';
+
+// was inherited from antd.less before removing that
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+:host {
+    // reset fonts
+    all: initial;
+    font-family: var(--font-sans);
+    font-size: 14px;
+    line-height: 1.5;
+
+    @include root-variables;
+}
+
+.LemonModal__overlay--force-modal-above-popovers {
+    z-index: 2147483033 !important;
+}
+
+.section-title {
+    margin-bottom: 10px;
+    font-size: 12px;
+    font-weight: bold;
+    color: hsl(220deg 15% 49% / 100%);
+    text-transform: uppercase;
+}
+
+.fade-component-container {
+    position: fixed;
+    z-index: 2147483020;
+}
+
+.Toastify__toast-container {
+    z-index: 2147483040;
+}
+
+.toolbar-global-fade-container {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+
+    > * {
+        pointer-events: auto;
+    }
+}
+
+.Popover {
+    z-index: 2147483020 !important;
+}

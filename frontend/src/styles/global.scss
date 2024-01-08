@@ -1,0 +1,732 @@
+/* Only styles that are shared across multiple components (i.e. global) should go here, trying to keep this file
+nimble to simplify maintenance. We separate variables and mixins in vars.scss to be able to import those into local
+style files without adding already imported styles.
+
+Font weights:
+Only 400 (`normal`), 500 (`var(--font-medium)`), 600 (`var(--font-semibold)`), or 700 (`bold`) should be used
+
+*/
+
+@use 'sass:map';
+
+// Global components
+@import '../../../node_modules/react-toastify/dist/ReactToastify';
+@import 'fonts';
+@import 'functions';
+@import 'mixins';
+@import 'utility-legacy';
+@import 'colors';
+@tailwind components;
+@tailwind utilities;
+
+:root {
+    @include root-variables;
+}
+
+// Text styles
+body b,
+body strong {
+    // body is specified to increase specificity – otherwise Ant Design's "bolder" takes precedence over "600"
+    font-weight: 600;
+}
+
+// Disable default styling for ul
+ul {
+    padding-left: 0;
+    margin-bottom: 0;
+    list-style: none;
+}
+
+// This may look odd but sets up our utility classes
+* {
+    border-color: var(--border);
+    border-style: solid;
+    border-width: 0;
+}
+
+.page-title-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem 1rem;
+    align-items: center;
+    min-height: 2.5rem;
+    margin: 1.25rem 0 0.25rem;
+
+    .ant-form-item {
+        margin-bottom: 0 !important;
+    }
+
+    .posthog-3000 & {
+        margin-top: 1rem;
+    }
+
+    @include screen($md) {
+        flex-wrap: nowrap;
+    }
+}
+
+.page-title {
+    min-width: 0;
+    margin: 0;
+    font-size: 28px;
+    font-weight: 600;
+    line-height: 34px;
+}
+
+.page-caption {
+    max-width: 48rem;
+    margin-bottom: 1rem;
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+
+    &.tabbed {
+        margin-bottom: 0.5rem;
+    }
+}
+
+.page-buttons {
+    display: flex;
+    flex-grow: 1;
+    flex-shrink: 0;
+    gap: 0.5rem;
+    align-items: center;
+    justify-content: right;
+}
+
+.secondary {
+    font-size: 0.9em;
+    font-weight: var(--font-medium);
+    color: var(--primary-alt);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    background: none;
+    border: 0;
+}
+
+.card-secondary {
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+mark {
+    background-color: var(--mark) !important;
+    border-radius: var(--radius);
+}
+
+// Supplement text, such as email under user name
+.supplement {
+    overflow: hidden;
+    font-size: 0.8125rem;
+    color: var(--muted-alt);
+    text-overflow: ellipsis;
+
+    &--danger {
+        font-weight: 600;
+        color: var(--danger);
+    }
+}
+
+hr {
+    border: 1px solid var(--border);
+}
+
+// Vendor-specific adjustments
+
+input::-ms-clear {
+    display: none; // Hide IE/Edge's clear button that can mess input sizing up
+}
+
+// Highlight background blink
+
+/* stylelint-disable-next-line keyframes-name-pattern */
+@keyframes highlight {
+    0% {
+        background-color: var(--mark);
+    }
+
+    100% {
+        background-color: initial;
+    }
+}
+
+// Generic 360 spin
+
+/* stylelint-disable-next-line keyframes-name-pattern */
+@keyframes spin {
+    0% {
+        transform: rotateZ(0deg);
+    }
+
+    100% {
+        transform: rotateZ(360deg);
+    }
+}
+
+// Toasts
+
+.Toastify__toast {
+    align-items: center;
+    padding: 0.75rem;
+    margin-bottom: 0.5rem;
+    font-family: var(--font-sans);
+    font-size: 1rem;
+    cursor: unset;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-elevation);
+    opacity: 1 !important;
+
+    .posthog-3000 & {
+        border-color: var(--secondary-3000-button-border);
+    }
+}
+
+.Toastify__toast-container {
+    padding: 0;
+}
+
+.Toastify__toast-body {
+    padding: 0;
+    font-size: 0.875rem;
+    font-weight: 500;
+    line-height: 1.25rem;
+    color: var(--default);
+
+    b,
+    strong {
+        font-weight: 700;
+    }
+
+    button {
+        margin: 0 0.75rem;
+    }
+}
+
+.Toastify__toast-icon {
+    width: 1.5rem;
+    height: 1.5rem;
+    margin-right: 0.75rem;
+    font-size: 1.5rem;
+    color: var(--muted-alt);
+
+    .Toastify__toast--success & {
+        color: var(--toastify-color-success);
+    }
+
+    .Toastify__toast--warning & {
+        color: var(--toastify-color-warning);
+    }
+
+    .Toastify__toast--error & {
+        color: var(--toastify-color-error);
+    }
+}
+
+.Toastify__progress-bar {
+    height: var(--radius);
+}
+
+// Form & input styles
+
+.input-set {
+    padding-bottom: 1rem;
+    color: var(--default);
+
+    label {
+        font-size: 0.875rem;
+        font-weight: bold;
+        line-height: 1.25rem;
+    }
+
+    .caption {
+        font-size: 0.875rem;
+        line-height: 1.25rem;
+        color: var(--muted);
+    }
+
+    .ant-radio-button-wrapper {
+        // To properly handle label styles above
+        font-weight: normal !important;
+        line-height: 30px !important;
+    }
+
+    &.errored {
+        .caption {
+            color: var(--danger);
+        }
+
+        input[type='password'],
+        input[type='text'] {
+            border-color: var(--danger) !important;
+        }
+    }
+}
+
+.error-on-blur {
+    &.errored:not(:focus) {
+        border-color: var(--danger) !important;
+    }
+}
+
+// Button styles
+
+.btn-close {
+    color: var(--muted);
+}
+
+.info-indicator {
+    margin-left: 4px;
+    color: var(--primary-alt) !important;
+    cursor: pointer;
+
+    &.left {
+        margin-right: 4px;
+        margin-left: 0;
+    }
+}
+
+.title-icon {
+    margin-left: 0.375rem;
+    font-size: 1rem;
+    line-height: 0;
+}
+
+.btn-lg-2x {
+    font-size: 1.5rem !important;
+    line-height: 1 !important;
+
+    svg {
+        width: 1.5rem !important;
+        height: 1.5rem !important;
+    }
+}
+
+// Graph series glyph
+
+.graph-series-glyph {
+    display: flex;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: center;
+    width: 22px;
+    height: 22px;
+    font-size: 12px;
+    font-weight: bold;
+    pointer-events: none;
+    border: 2px solid var(--default);
+    border-radius: 50%;
+
+    // variants
+    &.funnel-step-glyph {
+        width: 23px;
+        height: 23px;
+        font-size: unset;
+        color: var(--primary-alt);
+        background-color: var(--bg-light);
+        border-color: var(--border);
+    }
+}
+
+// Bottom notice (DEBUG=1 mode)
+
+#bottom-notice {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    z-index: var(--z-bottom-notice);
+    display: flex !important;
+    flex-direction: row;
+    width: 100%;
+    font-size: 0.75rem;
+    line-height: 1.5rem;
+    color: #fff;
+    background: #000;
+
+    code {
+        font-size: inherit;
+        color: inherit;
+    }
+
+    &.warning div {
+        height: auto;
+        background: var(--danger);
+    }
+
+    &.tricolor {
+        cursor: pointer;
+
+        div:nth-child(1) {
+            background: var(--primary-3000);
+        }
+
+        div:nth-child(2) {
+            background: var(--brand-blue);
+        }
+
+        div:nth-child(3) {
+            background: var(--warning);
+        }
+
+        span {
+            cursor: text;
+        }
+    }
+
+    div {
+        flex-basis: 0;
+        flex-grow: 1;
+        height: 1.5rem;
+        text-align: center;
+    }
+
+    span {
+        display: none;
+    }
+
+    button {
+        width: 1.5rem;
+        height: 1.5rem;
+        padding: 0;
+        font-size: 1rem;
+        font-weight: bold;
+        color: inherit;
+        cursor: pointer;
+        background: transparent;
+        border: none;
+    }
+
+    @media screen and (min-width: 750px) {
+        font-size: 1rem;
+        line-height: 2rem;
+
+        div {
+            height: 2rem;
+        }
+
+        span {
+            display: inline;
+        }
+
+        button {
+            width: 2rem;
+            height: 2rem;
+            font-size: 1.25rem;
+        }
+    }
+}
+
+// Overlays
+
+.overlay__parent {
+    position: relative;
+}
+
+.overlay__child {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    transition: opacity 0.25s ease;
+
+    .overlay--danger & {
+        background: repeating-linear-gradient(
+            -45deg,
+            rgb(255 255 255 / 50%),
+            rgb(255 255 255 / 50%) 0.75rem,
+            var(--danger) 0.5rem,
+            var(--danger) 20px
+        );
+    }
+}
+
+// Tags
+
+.simple-tag {
+    padding: 2px 6px;
+    border-radius: var(--radius);
+
+    &.tag-light-blue {
+        background-color: var(--primary-highlight);
+    }
+}
+
+// AntD overrrides, placed inside `body` to increase specifity (nicely avoiding the need for !important)
+body {
+    // Until we have 3000 rolled out we fallback to standard colors
+    --text-3000: var(--default);
+    --text-secondary-3000: var(--text-secondary);
+    --muted-3000: var(--muted);
+    --trace-3000: var(--trace-3000-light);
+    --primary-3000: var(--primary);
+    --primary-3000-highlight: var(--primary-highlight);
+    --primary-3000-hover: var(--primary-light);
+    --primary-3000-active: var(--primary-dark);
+    --secondary-3000: var(--secondary);
+    --secondary-3000-hover: var(--secondary-light);
+    --accent-3000: var(--side);
+    --bg-3000: var(--bg-light);
+    --border-3000: var(--border);
+    --border-bold-3000: var(--border);
+    --glass-bg-3000: var(--bg-light);
+    --glass-border-3000: var(--border);
+    --bg-light: #fff;
+    --bg-table: var(--bg-light);
+    --link: var(--primary-3000);
+    --tooltip-bg: var(--bg-charcoal);
+    --data-color-1-hover: #1d4affe5;
+
+    touch-action: manipulation; // Disable double-tap-to-zoom on mobile, making taps slightly snappier
+
+    &.posthog-3000[theme='light'] {
+        @include light-mode-3000-variables;
+    }
+
+    &.posthog-3000[theme='dark'] {
+        @include dark-mode-3000-variables;
+    }
+
+    &.posthog-3000 {
+        --shadow-elevation: var(--shadow-elevation-3000);
+        --primary: var(--primary-3000);
+        --primary-highlight: var(--primary-3000-highlight);
+
+        overflow: hidden; // Each area handles scrolling individually (e.g. navbar, scene, side panel)
+        background: var(--bg-3000);
+
+        .non-3000 {
+            // Helper to hide non-3000 elements without JS
+            display: none;
+        }
+
+        .LemonButton,
+        .Link {
+            .text-link {
+                color: var(--text-3000);
+            }
+
+            &:hover {
+                .text-link {
+                    color: var(--primary-3000);
+                }
+            }
+        }
+
+        * > {
+            ::-webkit-scrollbar {
+                width: 0.5rem;
+                height: 0.5rem;
+            }
+
+            ::-webkit-scrollbar-track {
+                background: var(--accent-3000);
+            }
+
+            ::-webkit-scrollbar-thumb {
+                background: var(--trace-3000);
+                border-radius: var(--radius);
+
+                &:hover {
+                    background: var(--muted-3000);
+                }
+            }
+        }
+
+        h1,
+        h2,
+        h3,
+        h4,
+        h5 {
+            font-family: var(--font-title);
+        }
+
+        @include posthog-3000-variables;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4 {
+        color: var(--default);
+    }
+
+    h5 {
+        margin-bottom: 0.25rem;
+        font-size: 0.6875rem;
+        font-weight: 600;
+        line-height: 1.5rem;
+        color: var(--muted-alt);
+        text-transform: uppercase;
+        letter-spacing: 0.075em;
+    }
+
+    pre,
+    code,
+    kbd,
+    samp {
+        font-family: var(--font-mono);
+    }
+
+    a {
+        color: var(--link);
+    }
+
+    // AntD uses its own border color for the bottom of tab lists, but we want to use `var(--border)`
+    .ant-tabs-top,
+    .ant-tabs-bottom {
+        &,
+        & > div {
+            & > .ant-tabs-nav::before {
+                border-bottom-color: var(--border);
+            }
+        }
+    }
+
+    .ant-dropdown {
+        color: var(--default);
+        border-radius: var(--radius);
+    }
+
+    .ant-dropdown-menu {
+        border-radius: var(--radius);
+    }
+
+    .ant-modal-content {
+        box-shadow: var(--shadow-elevation);
+    }
+
+    .ant-modal-mask {
+        z-index: var(--z-ant-modal-mask);
+    }
+
+    .ant-modal-wrap {
+        z-index: var(--z-ant-modal-wrap);
+    }
+
+    .ant-message {
+        z-index: var(--z-ant-message);
+    }
+
+    .ant-select-dropdown {
+        z-index: var(--z-ant-select-dropdown);
+        background-color: var(--bg-3000);
+
+        .ant-select-item.ant-select-item-option {
+            background-color: var(--bg-3000);
+
+            &.ant-select-item-option-active {
+                background-color: var(--border-3000);
+            }
+        }
+    }
+
+    .ant-input-number:hover,
+    .ant-input-number-focused {
+        border-color: var(--border-bold);
+    }
+
+    .ant-input-number-group-addon {
+        background: var(--bg-3000);
+    }
+
+    .ant-picker-dropdown {
+        z-index: var(--z-ant-select-dropdown);
+    }
+
+    .ant-popconfirm {
+        z-index: var(--z-bottom-notice);
+    }
+
+    .ant-card-bordered {
+        border-color: var(--border);
+    }
+
+    .ant-card-body > :first-child {
+        margin-top: 0;
+    }
+
+    .ant-form-item-label {
+        > label {
+            font-weight: 600;
+
+            .ant-form-item-optional {
+                font-weight: 400;
+                color: var(--muted);
+            }
+        }
+    }
+
+    .ant-form-item {
+        margin-bottom: 1rem;
+
+        &:last-child {
+            margin-bottom: 0;
+        }
+    }
+
+    // Tooltip styles
+    .ant-tooltip-inner {
+        background-color: var(--tooltip-bg);
+    }
+
+    .ant-tooltip-arrow-content {
+        background-color: var(--tooltip-bg);
+    }
+
+    .ant-tooltip {
+        max-width: 350px;
+    }
+
+    .ant-table-thead > tr > th,
+    .ant-table-small .ant-table-thead > tr > th {
+        background: var(--mid);
+    }
+
+    .ant-table-tbody > tr > td {
+        border-bottom-color: var(--border);
+    }
+
+    .ant-table-tbody > tr.ant-table-placeholder:hover > td {
+        background: inherit;
+    }
+}
+
+.storybook-test-runner {
+    // Only use this class in visual regression tests
+    *,
+    *::before,
+    *::after {
+        transition-duration: 0ms !important;
+        animation-fill-mode: forwards !important;
+        animation-duration: 0ms !important;
+        animation-iteration-count: 1 !important;
+    }
+
+    // Hide some parts of the UI that were causing flakiness
+    ::-webkit-scrollbar, // Scrollbar in WebKit/Blink browsers
+    .LemonTabs__bar::after, // Active tab slider
+    .scrollable::after, // Scrollability indicators
+    .scrollable::before {
+        display: none;
+    }
+}
+
+.posthog-3000 {
+    .ant-radio-button-wrapper {
+        background: var(--secondary-3000);
+        border-color: transparent;
+    }
+}
+
+.posthog-3000[theme='dark'] {
+    .ant-empty-img-simple-path {
+        fill: var(--border-3000);
+    }
+
+    .ant-empty-img-simple-ellipse {
+        fill: var(--border-3000);
+    }
+}

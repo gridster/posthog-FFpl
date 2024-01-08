@@ -1,0 +1,102 @@
+@import '../../styles/mixins';
+
+.saved-insights {
+    > .LemonTable td {
+        padding-top: 0.75rem !important;
+        padding-bottom: 0.75rem !important;
+
+        &.icon-column {
+            font-size: 1.5rem;
+            color: var(--muted);
+
+            .LemonSkeleton {
+                width: 2rem;
+                height: 2rem;
+            }
+        }
+    }
+
+    .new-insight-dropdown-btn {
+        height: 40px;
+        padding: 8px 12px 8px 16px;
+        color: white;
+        cursor: pointer;
+        background-color: var(--primary-3000);
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+    }
+
+    .saved-insight-empty-state {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+
+        .insight-empty-state__wrapper {
+            max-width: 600px;
+            margin-top: 5rem;
+            margin-bottom: 17rem;
+
+            .illustration-main {
+                margin-bottom: 1rem;
+                font-size: 5rem;
+                line-height: 1em;
+                color: var(--border);
+                text-align: center;
+            }
+
+            .empty-state__title {
+                font-size: 1.5rem;
+                font-weight: 600;
+                line-height: 1.6rem;
+            }
+
+            .empty-state__description {
+                font-size: 1rem;
+                font-weight: 500;
+                line-height: 1.7rem;
+                color: var(--muted);
+            }
+
+            button.add-insight-button {
+                height: 50px;
+                padding: 0 3rem;
+            }
+        }
+    }
+}
+
+.new-insight-overlay {
+    width: 21rem;
+}
+
+.insight-type-icon-wrapper {
+    display: flex;
+    align-items: center;
+
+    .icon-container {
+        position: relative;
+        width: 22px;
+        height: 22px;
+        margin-right: 8px;
+
+        .icon-container-inner {
+            margin-left: -2px;
+            font-size: 22px;
+        }
+    }
+}
+
+.saved-insights-grid {
+    position: relative;
+    display: grid;
+    grid-gap: 1rem;
+
+    @include screen($xl) {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    @include screen($xxl) {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}

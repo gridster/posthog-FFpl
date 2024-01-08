@@ -1,0 +1,94 @@
+.LemonInput {
+    display: flex;
+    gap: 0.25rem;
+    align-items: center;
+    justify-content: center;
+    height: 2.5rem;
+    padding: 0.25rem 0.5rem;
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+    color: var(--default);
+    text-align: left;
+    cursor: text;
+    background: none;
+    background-color: var(--bg-light);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+
+    .posthog-3000 & {
+        height: calc(2.125rem + 3px); // Medium size button height + button shadow height
+    }
+
+    &:hover:not([aria-disabled='true']) {
+        border-color: var(--primary-3000-hover);
+
+        .posthog-3000 & {
+            border-color: var(--border-bold);
+        }
+    }
+
+    &.LemonInput--focused:not([aria-disabled='true']) {
+        border-color: var(--primary-3000);
+
+        .posthog-3000 & {
+            border-color: var(--border-active);
+        }
+    }
+
+    &.LemonInput--transparent-background {
+        background-color: inherit;
+    }
+
+    .Field--error &,
+    &.LemonInput--status-danger {
+        border-color: var(--danger) !important; // The error border overrides hover/focus higlighting
+    }
+
+    .LemonInput__input {
+        align-self: stretch; // Improves selectability
+        width: 100%;
+        text-overflow: ellipsis;
+        background: none;
+        border: none;
+        outline: none;
+
+        &:disabled {
+            cursor: not-allowed;
+            opacity: var(--opacity-disabled);
+        }
+    }
+
+    .LemonIcon {
+        flex-shrink: 0;
+        width: 1em;
+        height: 1em;
+        font-size: 1.25rem;
+        color: var(--muted-alt);
+        transition: color 200ms ease;
+    }
+
+    &.LemonInput--small {
+        height: 2rem;
+        padding: 0.125rem 0.25rem;
+
+        .LemonIcon {
+            font-size: 1.25rem;
+        }
+    }
+
+    &.LemonInput--has-content {
+        > .LemonIcon {
+            color: var(--primary-3000);
+        }
+    }
+
+    &.LemonInput--type-search {
+        // NOTE Design: Search inputs are given a specific small width
+        max-width: 240px;
+    }
+
+    &.LemonInput--full-width {
+        width: 100%;
+        max-width: 100%;
+    }
+}

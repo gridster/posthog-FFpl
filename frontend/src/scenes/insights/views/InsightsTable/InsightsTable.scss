@@ -1,0 +1,21 @@
+.series-name-wrapper-col {
+    display: flex;
+    align-items: center;
+
+    .edit-icon {
+        font-size: 1rem;
+        color: var(--primary-3000);
+        cursor: pointer;
+    }
+
+    .insights-label {
+        &.editable {
+            cursor: pointer;
+
+            .EntityFilterInfo {
+                font-weight: 500;
+                color: var(--primary-3000);
+            }
+        }
+    }
+}

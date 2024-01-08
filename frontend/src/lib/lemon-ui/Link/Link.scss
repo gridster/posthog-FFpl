@@ -1,0 +1,39 @@
+.Link {
+    padding: 0;
+    line-height: inherit;
+    color: var(--link);
+    cursor: pointer;
+    background: none;
+    border: none;
+    outline: none;
+    transition: none;
+
+    &:not(:disabled) {
+        &:hover {
+            color: var(--primary-3000-hover);
+        }
+
+        &:active {
+            color: var(--primary-3000-active);
+        }
+    }
+
+    &:disabled {
+        cursor: not-allowed;
+        opacity: var(--opacity-disabled);
+    }
+
+    > .LemonIcon {
+        margin-left: 0.15em;
+    }
+
+    &--subtle {
+        .posthog-3000 & {
+            color: var(--default);
+
+            &:not(:disabled):hover {
+                color: var(--primary-3000-hover);
+            }
+        }
+    }
+}

@@ -1,0 +1,48 @@
+# In order to add, delete or modify a dependency, please update
+# the reference here and then run:
+#
+# - `pip-compile --rebuild requirements.in`
+# - `pip-compile --rebuild requirements-dev.in`
+#
+# Make sure we use production deps for constraining installed dev packages. This
+# is important as otherwise we could be running tests with different versions
+# than production.
+#
+
+-c requirements.txt
+
+ruff>=0.1.2
+pip-tools==6.13.0
+mypy==0.981
+mypy-extensions==0.4.3
+datamodel-code-generator==0.21.5
+djangorestframework-stubs==1.4.0
+django-stubs==1.8.0
+Faker==17.5.0
+fakeredis[lua]==2.11.0
+freezegun==1.2.2
+packaging==23.1
+prance==0.22.2.22.0
+black==22.8.0
+types-markdown==3.3.9
+types-PyYAML==6.0.1
+types-freezegun==1.1.10
+types-python-dateutil>=2.8.3
+types-pytz==2023.3
+types-redis==4.3.20
+types-retry==0.9.9.4
+types-requests==2.26.1
+parameterized==0.9.0
+pytest==7.4.0
+pytest-asyncio==0.21.1
+pytest-cov==4.1.0
+pytest-django==4.5.2
+pytest-env==0.8.2
+pytest-icdiff==0.6
+pytest-mock==3.11.1
+pytest-split==0.8.1
+pytest-watch==4.2.0
+python-dateutil>=2.8.2
+responses==0.23.1
+syrupy==1.7.4
+flaky==3.7.0

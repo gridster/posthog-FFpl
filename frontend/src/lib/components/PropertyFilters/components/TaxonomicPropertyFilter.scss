@@ -1,0 +1,93 @@
+.TaxonomicPropertyFilter {
+    width: 100%;
+    overflow: hidden;
+
+    &--in-dropdown {
+        width: 900px;
+        min-width: 300px;
+        max-width: 100%;
+        background: var(--bg-light);
+
+        .TaxonomicPropertyFilter__row__items {
+            > :first-child {
+                width: 10rem;
+            }
+        }
+    }
+
+    .TaxonomicPropertyFilter__row {
+        display: flex;
+        gap: 0.5rem;
+        overflow: hidden;
+
+        .TaxonomicPropertyFilter__row__operator {
+            display: flex;
+            flex-shrink: 0;
+            align-items: center;
+            justify-content: flex-end;
+            width: 4.5rem;
+            height: 40px; // Matches typical row height
+
+            .arrow {
+                position: relative;
+                font-size: 18px;
+                font-weight: bold;
+                color: #c4c4c4;
+                user-select: none;
+            }
+        }
+
+        .TaxonomicPropertyFilter__row__items {
+            display: flex;
+            flex: 1;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            align-items: flex-start;
+            overflow: hidden;
+
+            > * {
+                max-width: 100%;
+                overflow: hidden;
+            }
+        }
+
+        &.TaxonomicPropertyFilter__row--showing-operators {
+            // Mobile screen - columns
+            &.width-tiny {
+                .TaxonomicPropertyFilter__row__items {
+                    flex-direction: column;
+                    align-items: stretch;
+                }
+            }
+
+            // small size - force wrapping
+            &.width-small {
+                .TaxonomicPropertyFilter__row__items {
+                    > :first-child {
+                        flex: 1;
+                        min-width: 10rem;
+                    }
+
+                    > :last-child {
+                        width: 100%;
+                    }
+                }
+            }
+
+            &.width-medium {
+                .TaxonomicPropertyFilter__row__items {
+                    > :first-child {
+                        width: 30%;
+                        min-width: 10rem;
+                    }
+                }
+            }
+        }
+
+        &.TaxonomicPropertyFilter__row--or-filtering {
+            .TaxonomicPropertyFilter__row__operator {
+                width: 2rem;
+            }
+        }
+    }
+}

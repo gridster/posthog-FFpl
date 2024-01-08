@@ -1,0 +1,13 @@
+.filter-row-popover {
+    // so the datepicker is visible
+    overflow: visible;
+}
+
+.property-filter-row {
+    flex-basis: 100%;
+    overflow: hidden;
+
+    &.wrap-filters {
+        flex-basis: auto;
+    }
+}
