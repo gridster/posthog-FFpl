@@ -286,10 +286,10 @@ jobs:
               run: |
                   if [[ -z $(git status -s | grep -v ".test_durations" | tr -d "\n") ]]
                   then
-                    echo 'files_found=false' >> $GITHUB_OUTPUT
+                    echo 'files_found=false' >> "$GITHUB_OUTPUT"
                   else
-                    echo 'diff=$(git status --porcelain)' >> $GITHUB_OUTPUT
-                    echo 'files_found=true' >> $GITHUB_OUTPUT
+                    echo 'diff=$(git status --porcelain)' >> "$GITHUB_OUTPUT"
+                    echo 'files_found=true' >> "$GITHUB_OUTPUT"
                   fi
 
             - name: Fail CI if some snapshots have been updated but not committed

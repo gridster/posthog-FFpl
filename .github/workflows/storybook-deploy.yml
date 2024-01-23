@@ -51,7 +51,7 @@ jobs:
 
             - name: Set commit message
               id: commit-message
-              run: echo "msg=Storybook build for ${{ github.sha }}" >> $GITHUB_OUTPUT
+              run: echo "msg=Storybook build for ${{ github.sha }}" >> "$GITHUB_OUTPUT"
 
             - name: Commit update
               uses: stefanzweifel/git-auto-commit-action@v4
