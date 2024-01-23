@@ -66,7 +66,7 @@ jobs:
 
             - name: Group spec files into chunks of three
               id: chunk
-              run: echo "chunks=$(ls cypress/e2e/* | jq --slurp --raw-input -c 'split("\n")[:-1] | _nwise(2) | join("\n")' | jq --slurp -c .)" >> $GITHUB_OUTPUT
+              run: echo "chunks=$(ls cypress/e2e/* | jq --slurp --raw-input -c 'split("\n")[:-1] | _nwise(2) | join("\n")' | jq --slurp -c .)" >> "$GITHUB_OUTPUT"
 
     container:
         name: Build and cache container image
@@ -128,12 +128,12 @@ jobs:
             - name: Get pnpm cache directory path
               if: needs.changes.outputs.shouldTriggerCypress == 'true'
               id: pnpm-cache-dir
-              run: echo "PNPM_STORE_PATH=$(pnpm store path)" >> $GITHUB_OUTPUT
+              run: echo "PNPM_STORE_PATH=$(pnpm store path)" >> "$GITHUB_OUTPUT"
 
             - name: Get cypress cache directory path
               if: needs.changes.outputs.shouldTriggerCypress == 'true'
               id: cypress-cache-dir
-              run: echo "CYPRESS_BIN_PATH=$(npx cypress cache path)" >> $GITHUB_OUTPUT
+              run: echo "CYPRESS_BIN_PATH=$(npx cypress cache path)" >> "$GITHUB_OUTPUT"
 
             - uses: actions/cache@v3
               if: needs.changes.outputs.shouldTriggerCypress == 'true'

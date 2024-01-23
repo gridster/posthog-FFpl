@@ -199,10 +199,10 @@ jobs:
                     fi
                   fi
 
-                  echo "${{ matrix.browser }}-${{ matrix.shard }}-added=$ADDED" >> $GITHUB_OUTPUT
-                  echo "${{ matrix.browser }}-${{ matrix.shard }}-modified=$MODIFIED" >> $GITHUB_OUTPUT
-                  echo "${{ matrix.browser }}-${{ matrix.shard }}-deleted=$DELETED" >> $GITHUB_OUTPUT
-                  echo "${{ matrix.browser }}-${{ matrix.shard }}-total=$TOTAL" >> $GITHUB_OUTPUT
+                  echo "${{ matrix.browser }}-${{ matrix.shard }}-added=$ADDED" >> "$GITHUB_OUTPUT"
+                  echo "${{ matrix.browser }}-${{ matrix.shard }}-modified=$MODIFIED" >> "$GITHUB_OUTPUT"
+                  echo "${{ matrix.browser }}-${{ matrix.shard }}-deleted=$DELETED" >> "$GITHUB_OUTPUT"
+                  echo "${{ matrix.browser }}-${{ matrix.shard }}-total=$TOTAL" >> "$GITHUB_OUTPUT"
 
             - name: Commit updated snapshots
               uses: EndBug/add-and-commit@v9
@@ -218,7 +218,7 @@ jobs:
             - name: Add commit hash to outputs, including browser name
               id: commit-hash
               if: steps.commit.outputs.pushed == 'true'
-              run: echo "${{ matrix.browser }}-${{ matrix.shard }}-commitHash=${{ steps.commit.outputs.commit_long_sha }}" >> $GITHUB_OUTPUT
+              run: echo "${{ matrix.browser }}-${{ matrix.shard }}-commitHash=${{ steps.commit.outputs.commit_long_sha }}" >> "$GITHUB_OUTPUT"
 
     visual-regression-summary:
         name: Summarize visual regression tests

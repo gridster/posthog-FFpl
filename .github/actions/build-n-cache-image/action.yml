@@ -26,7 +26,7 @@ runs:
         - name: Emit image tag
           id: emit
           shell: bash
-          run: echo "tag=posthog/posthog:${{ github.sha }}" >> $GITHUB_OUTPUT
+          run: echo "tag=posthog/posthog:${{ github.sha }}" >> "$GITHUB_OUTPUT"
 
         - name: Build image # We don't push this because we use Depot cache as the communication channel
           id: build
